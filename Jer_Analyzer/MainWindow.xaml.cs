@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using System.Windows.Input;
 
 namespace WpfApp1
 {
@@ -39,6 +40,8 @@ namespace WpfApp1
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait; // set the cursor to loading spinner
+
             string zipPath = UnZip.Text;
             string unzipPath = @".\" + Path.GetFileNameWithoutExtension(zipPath);
             if (Directory.Exists(unzipPath))
@@ -82,6 +85,7 @@ namespace WpfApp1
                     }
                 }
             }
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow; // set the cursor back to arrow
             MessageBox.Show("DONE !!!!!!!!!!!!");
         }
     }
