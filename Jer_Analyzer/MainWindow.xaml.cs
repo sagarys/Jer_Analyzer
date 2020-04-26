@@ -6,8 +6,9 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Windows.Input;
+using System.Threading.Tasks;
 
-namespace WpfApp1
+namespace Jer_Analyzer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -41,9 +42,11 @@ namespace WpfApp1
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait; // set the cursor to loading spinner
-
+            var list = new List<Task>();
             string zipPath = UnZip.Text;
             string unzipPath = @".\" + Path.GetFileNameWithoutExtension(zipPath);
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             if (Directory.Exists(unzipPath))
             {
                 Directory.Delete(unzipPath, true);
@@ -72,7 +75,6 @@ namespace WpfApp1
             string[] files = Directory.GetFiles(unzipPath, "*.*", SearchOption.AllDirectories);
             string TELg2Txt = "TELg2Txt.exe";
             var file_names = file_to_dir.Keys;
-            
             foreach (var file in files)
             {
                 foreach (var jerFile in list_jerSchema)
@@ -81,12 +83,21 @@ namespace WpfApp1
                     {
                         string temp;
                         temp = TELg2Txt + " -in " + "\"" + file + "\"" + " -out " + "\"" + Path.Combine(unzipPath, jerFile.Dir_name, Path.GetFileName(file)) + ".txt" + "\"";
-                        ExecuteCommand(temp);
+                        var t = new Task(() =>
+                        {
+                            ExecuteCommand(temp);
+                        });
+                        list.Add(t);
+                        t.Start();
                     }
                 }
             }
+            
+            Task.WaitAll(list.ToArray());
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow; // set the cursor back to arrow
-            MessageBox.Show("DONE !!!!!!!!!!!!");
+            stopwatch.Stop();
+
+            MessageBox.Show("DONE AND Time Taken is :- "+ stopwatch.Elapsed);
         }
     }
 }
