@@ -18,4 +18,5 @@
 <File name="log_canoncfgText_ac" Directory_Name="CannonCfgText"/>
 <File name="log_fierysysText_Eng" Directory_Name="Fierysys"/>
 <File name="log_videoText_video" Directory_Name="log_videoText"/>
+<File name="httpdLive" Directory_Name="ACD_Logs" DecodingExt="None"/>
 </JerFiles>

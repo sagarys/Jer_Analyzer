@@ -63,7 +63,7 @@ namespace Jer_Analyzer
                     file_to_dir.Add(xe.Attribute("name")?.Value, xe.Attribute("Directory_Name")?.Value);
 
                     list_jerSchema.Add(new JerSchema(xe.Attribute("name")?.Value, xe.Attribute("Directory_Name")?.Value,
-                                                     xe.Attribute("decodingext")?.Value));
+                                                     xe.Attribute("DecodingExt")?.Value));
                 }
                 if (xe.Attribute("Directory_Name")?.Value != null)
                 {
@@ -79,9 +79,20 @@ namespace Jer_Analyzer
             {
                 foreach (var jerFile in list_jerSchema)
                 {
+                    string temp = null;
+                    if (jerFile?.Dec_name == "None" && file.Contains(jerFile.Name))
+                    {
+                        temp = "copy /y " + file + " " + "\"" + Path.Combine(unzipPath, jerFile.Dir_name) + "\"";
+                        var t = new Task(() =>
+                        {
+                            ExecuteCommand(temp);
+                        });
+                        list.Add(t);
+                        t.Start();
+                        continue;
+                    }
                     if (file.Contains(jerFile.Name))
                     {
-                        string temp;
                         temp = TELg2Txt + " -in " + "\"" + file + "\"" + " -out " + "\"" + Path.Combine(unzipPath, jerFile.Dir_name, Path.GetFileName(file)) + ".txt" + "\"";
                         var t = new Task(() =>
                         {
@@ -92,12 +103,12 @@ namespace Jer_Analyzer
                     }
                 }
             }
-            
+
             Task.WaitAll(list.ToArray());
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow; // set the cursor back to arrow
             stopwatch.Stop();
 
-            MessageBox.Show("DONE AND Time Taken is :- "+ stopwatch.Elapsed);
+            MessageBox.Show("Done and Time Taken is :- " + stopwatch.Elapsed);
         }
     }
 }
