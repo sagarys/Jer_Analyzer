@@ -19,6 +19,19 @@ namespace Jer_Analyzer
         {
             InitializeComponent();
         }
+        private void DeleteEmptyDirectory(string dirPath)
+        {
+            if (Directory.Exists(dirPath))
+            {
+                //Delete all child Directories if they are empty
+                foreach (string subdirectory in Directory.GetDirectories(dirPath))
+                {
+                    string[] file = Directory.GetFiles(subdirectory, "*.*");
+                    if (file.Length == 0)
+                        Directory.Delete(subdirectory);
+                }
+            }
+        }
         public static void ExecuteCommand(string command)
         {
             var processInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
@@ -103,8 +116,9 @@ namespace Jer_Analyzer
                     }
                 }
             }
-
             Task.WaitAll(list.ToArray());
+            DeleteEmptyDirectory(unzipPath);
+
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow; // set the cursor back to arrow
             stopwatch.Stop();
 

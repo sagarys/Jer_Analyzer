@@ -1,11 +1,16 @@
 <JerFiles>
 <File name="log_canoncfgText_ac_" Directory_Name="Cannon_Engine_Logs" DecodingExt="LogDecodeTool.exe"/>
 <File name="log_alfText_aegis_clcd" Directory_Name="Aegis_clcd"/>
+<File name="persist_log_alf_Text_aegis_clcd" Directory_Name="Aegis_clcd"/>
 <File name="log_alfText_aegis_cmd" Directory_Name="Aegis_cmd"/>
+<File name="persist_log_alf_Text_aegis_cmd" Directory_Name="Aegis_cmd"/>
 <File name="log_alfText_aegis_video" Directory_Name="Aegis_video"/>
+<File name="persist_log_alf_Text_aegis_video" Directory_Name="Aegis_video"/>
 <File name="log_alfText_kvf" Directory_Name="KVF"/>
+<File name="persist_log_alf_Text_kvf" Directory_Name="KVF"/>
 <File name="log_configman_install" Directory_Name="Configman_install"/>
 <File name="log_FieryText_Eng" Directory_Name="FieryText_Eng"/>
+<File name="persist_log_commonlcd_Text_Eng" Directory_Name="FieryText_Eng"/>
 <File name="log_alfText_usersettings" Directory_Name="AlfText_usersettings"/>
 <File name="log_commonlcd" Directory_Name="Commonlcd"/>
 <File name="log_lpd" Directory_Name="LPD"/>
@@ -18,5 +23,6 @@
 <File name="log_canoncfgText_ac" Directory_Name="CannonCfgText"/>
 <File name="log_fierysysText_Eng" Directory_Name="Fierysys"/>
 <File name="log_videoText_video" Directory_Name="log_videoText"/>
-<File name="httpdLive" Directory_Name="ACD_Logs" DecodingExt="None"/>
+<File name="log_LogServerfiery" Directory_Name="LogServerfiery"/>
+<File name="persist_log_LogServerfiery" Directory_Name="LogServerfiery"/>
 </JerFiles>

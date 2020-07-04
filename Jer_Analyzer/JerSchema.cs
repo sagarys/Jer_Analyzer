@@ -11,16 +11,19 @@ namespace Jer_Analyzer
         private string name;
         private string dir_name;
         private string dec_name;
+        private List<string> keyword;
 
-        public JerSchema(string name, string dir_name, string dec_name)
+        public JerSchema(string name, string dir_name, string dec_name,List<string> keyword = null)
         {
             this.Name = name;
             this.Dir_name = dir_name;
             this.Dec_name = dec_name;
+            this.Keyword = keyword;
         }
 
         public string Name { get => name; set => name = value; }
         public string Dir_name { get => dir_name; set => dir_name = value; }
         public string Dec_name { get => dec_name; set => dec_name = value; }
+        public List<string> Keyword { get => keyword; set => keyword = value; }
     }
 }
