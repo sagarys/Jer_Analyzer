@@ -13,12 +13,12 @@ namespace Jer_Analyzer
         private string dec_name;
         private List<string> keyword;
 
-        public JerSchema(string name, string dir_name, string dec_name,List<string> keyword = null)
+        public JerSchema(string name, string dir_name, string dec_name,string keyword = null)
         {
             this.Name = name;
             this.Dir_name = dir_name;
             this.Dec_name = dec_name;
-            this.Keyword = keyword;
+            this.keyword = keyword?.Split(',').ToList();
         }
 
         public string Name { get => name; set => name = value; }

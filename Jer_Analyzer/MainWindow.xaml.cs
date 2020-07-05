@@ -32,6 +32,47 @@ namespace Jer_Analyzer
                 }
             }
         }
+        public static string LOGS_OF_INTREST = "LOGS_OF_INTREST";
+        private void findKeyowrd(string decFileName, List<string> keywords)
+        {
+            try
+            {
+                // Create an instance of StreamReader to read from a file.
+                // The using statement also closes the StreamReader.
+                using (StreamReader sr = new StreamReader(decFileName))
+                {
+                    string line;
+
+                    // Read and display lines from the file until 
+                    // the end of the file is reached. 
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        bool found = false;
+                        foreach (var keyword in keywords)
+                        {
+                            if (line.Contains(keyword))
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (found)
+                        {
+                            var logsOfIntrestDirPath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(decFileName)), LOGS_OF_INTREST);
+                            File.Copy(decFileName, Path.Combine(logsOfIntrestDirPath, Path.GetFileName(decFileName)));
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                // Let the user know what went wrong.
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
+        }
+        
         public static void ExecuteCommand(string command)
         {
             var processInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
@@ -76,13 +117,14 @@ namespace Jer_Analyzer
                     file_to_dir.Add(xe.Attribute("name")?.Value, xe.Attribute("Directory_Name")?.Value);
 
                     list_jerSchema.Add(new JerSchema(xe.Attribute("name")?.Value, xe.Attribute("Directory_Name")?.Value,
-                                                     xe.Attribute("DecodingExt")?.Value));
+                                                      xe.Attribute("DecodingExt")?.Value, xe.Attribute("keyword")?.Value));
                 }
                 if (xe.Attribute("Directory_Name")?.Value != null)
                 {
                     Directory.CreateDirectory(Path.Combine(unzipPath, xe.Attribute("Directory_Name")?.Value));
                 }
             }
+            Directory.CreateDirectory(Path.Combine(unzipPath, LOGS_OF_INTREST));
             ZipFile.ExtractToDirectory(@".\" + zipPath, unzipPath);
 
             string[] files = Directory.GetFiles(unzipPath, "*.*", SearchOption.AllDirectories);
@@ -110,6 +152,10 @@ namespace Jer_Analyzer
                         var t = new Task(() =>
                         {
                             ExecuteCommand(temp);
+                            if (jerFile.Keyword != null)
+                            {
+                                findKeyowrd(Path.Combine(unzipPath, jerFile.Dir_name, Path.GetFileName(file)) + ".txt", jerFile.Keyword);
+                            }
                         });
                         list.Add(t);
                         t.Start();
