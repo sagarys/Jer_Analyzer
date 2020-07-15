@@ -48,18 +48,20 @@ namespace Jer_Analyzer
                     while ((line = sr.ReadLine()) != null)
                     {
                         bool found = false;
+                        var foundKeyword = "";
                         foreach (var keyword in keywords)
                         {
                             if (line.Contains(keyword))
                             {
                                 found = true;
+                                foundKeyword = keyword;
                                 break;
                             }
                         }
                         if (found)
                         {
                             var logsOfIntrestDirPath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(decFileName)), LOGS_OF_INTREST);
-                            File.Copy(decFileName, Path.Combine(logsOfIntrestDirPath, Path.GetFileName(decFileName)));
+                            File.Copy(decFileName, Path.Combine(logsOfIntrestDirPath, Path.GetFileNameWithoutExtension(decFileName) + "_" + foundKeyword + Path.GetExtension(decFileName)));
                             break;
                         }
                     }
@@ -72,7 +74,7 @@ namespace Jer_Analyzer
                 Console.WriteLine(e.Message);
             }
         }
-        
+
         public static void ExecuteCommand(string command)
         {
             var processInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
@@ -105,7 +107,7 @@ namespace Jer_Analyzer
             {
                 Directory.Delete(unzipPath, true);
             }
-            XDocument xdoc = XDocument.Load("Jer_Schema.xml");
+            XDocument xdoc = XDocument.Load(@".\src\Jer_Schema.xml");
             List<JerSchema> list_jerSchema = new List<JerSchema>();
             var xml_content = xdoc.Descendants();
             Dictionary<String, string> file_to_dir = new Dictionary<string, string>();
@@ -128,7 +130,7 @@ namespace Jer_Analyzer
             ZipFile.ExtractToDirectory(@".\" + zipPath, unzipPath);
 
             string[] files = Directory.GetFiles(unzipPath, "*.*", SearchOption.AllDirectories);
-            string TELg2Txt = "TELg2Txt.exe";
+            string TELg2Txt = @".\src\TELg2Txt.exe";
             var file_names = file_to_dir.Keys;
             foreach (var file in files)
             {
