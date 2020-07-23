@@ -1,5 +1,5 @@
 <JerFiles>
-<File name="log_canoncfgText_ac_" Directory_Name="Cannon_Engine_Logs" DecodingExt="LogDecodeTool.exe"/>
+<File name="log_canoncfgText_ac_" Directory_Name="Cannon_Engine_Logs" DecodingExt="None"/>
 <File name="log_alfText_aegis_clcd" Directory_Name="Aegis_clcd"/>
 <File name="persist_log_alf_Text_aegis_clcd" Directory_Name="Aegis_clcd"/>
 <File name="log_alfText_aegis_cmd" Directory_Name="Aegis_cmd"/>
@@ -9,7 +9,7 @@
 <File name="log_alfText_kvf" Directory_Name="KVF"/>
 <File name="persist_log_alf_Text_kvf" Directory_Name="KVF"/>
 <File name="log_configman_install" Directory_Name="Configman_install"/>
-<File name="log_FieryText_Eng" Directory_Name="FieryText_Eng"/>
+<File name="log_FieryText_Eng" Directory_Name="FieryText_Eng" keyword="internal error,assert,failure,unexpected,Error:"/>
 <File name="persist_log_commonlcd_Text_Eng" Directory_Name="FieryText_Eng"/>
 <File name="log_alfText_usersettings" Directory_Name="AlfText_usersettings"/>
 <File name="log_commonlcd" Directory_Name="Commonlcd"/>
@@ -25,4 +25,6 @@
 <File name="log_videoText_video" Directory_Name="log_videoText"/>
 <File name="log_LogServerfiery" Directory_Name="LogServerfiery" keyword="internal error,assert"/>
 <File name="persist_log_LogServerfiery" Directory_Name="LogServerfiery"/>
+<File name="log_startUpLog" Directory_Name="log_startUpLog" DecodingExt="None" keyword="assert"/>
+<File name="httpdLive_log" Directory_Name="Acd_Logs" DecodingExt="None" />
 </JerFiles>
